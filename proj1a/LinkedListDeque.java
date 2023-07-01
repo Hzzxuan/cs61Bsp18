@@ -2,7 +2,7 @@ import javax.security.sasl.SaslServer;
 
 public class LinkedListDeque <T>{
 
-    public class TNode{
+    private class TNode{
         public TNode prev;
         public T item;
         public TNode next;
@@ -116,7 +116,7 @@ public class LinkedListDeque <T>{
         return null;
     }
 
-    public T getRecursive_helper1(int index,TNode sentinelF){
+    private T getRecursive_helper1(int index,TNode sentinelF){
         if(index==0){
             return sentinelF.next.item;
         }
@@ -124,18 +124,11 @@ public class LinkedListDeque <T>{
 
     }
 
-    public T getRecursive_helper2(int index,TNode sentinelB){
+    private T getRecursive_helper2(int index,TNode sentinelB){
         if (index==1){
             return  sentinelB.prev.item;
         }
         return getRecursive_helper2(index-1,sentinelB.prev);
     }
-    public static void main(String[] args){
-        LinkedListDeque<String>D = new LinkedListDeque<>();
-        D.addFirst("1");
-        D.addFirst("2");
-        D.addFirst("3");
-        D.addFirst("4");
-        System.out.println(D.getRecursive(6));
-    }
+
 }

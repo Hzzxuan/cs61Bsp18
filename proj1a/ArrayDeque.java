@@ -1,9 +1,8 @@
 public class ArrayDeque<T>{
-    public T[] items;
-    public int size;
-    public int nextfirst;
-    public int nextlast;
-
+    private T[] items;
+    private int size;
+    private int nextfirst;
+    private int nextlast;
     public ArrayDeque(){
         items = (T[]) new Object[8];
         size = 0;
@@ -11,7 +10,7 @@ public class ArrayDeque<T>{
         nextlast = 1;
     }
 
-    public T[] resize(){
+    private T[] resize(){
         T[] newitems = (T[]) new Object[items.length*2];
         int TempFirst=(nextfirst+1)%items.length;
         int TempLast = nextlast-1;
@@ -30,7 +29,7 @@ public class ArrayDeque<T>{
         return newitems;
     }
 
-    public T[] shrink(){
+    private T[] shrink(){
         T[] newitems = (T[]) new Object[items.length/2];
         int TempFirst=(nextfirst+1)%items.length;
         int TempLast = nextlast-1;
@@ -128,7 +127,7 @@ public class ArrayDeque<T>{
     public T removeLast(){
         int TempLast = nextlast-1;
         if(TempLast<0){
-            TempLast = items.length;
+            TempLast = items.length-1;
         }
         T item = items[TempLast];
         items[TempLast]=null;
@@ -147,28 +146,4 @@ public class ArrayDeque<T>{
     }
 
 
-    public static void main(String[] args){
-        ArrayDeque<Integer> AD= new ArrayDeque<>();
-        AD.addFirst(1);
-        AD.addFirst(4);
-        AD.addLast(4);
-        AD.addLast(5);
-        AD.addFirst(1);
-        AD.addLast(6);
-        AD.addLast(2);
-        AD.addLast(8);
-        AD.printDeque();
-        AD.addLast(9);
-        AD.printDeque();
-        System.out.println(AD.get(5));
-        AD.removeLast();
-        AD.removeFirst();
-        AD.removeFirst();
-        AD.removeLast();
-        AD.removeFirst();
-        AD.removeFirst();
-        AD.removeFirst();
-        AD.printDeque();
-
-    }
 }
