@@ -3,23 +3,23 @@ import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 public class PercolationStats {
     private int TotalTime;
-    private int [] ArrayX;
+    private double [] ArrayX;
     public PercolationStats(int N, int T, PercolationFactory pf){
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
         }
         TotalTime =T ;
-        ArrayX = new int[T];
+        ArrayX = new double[T];
         for(int i =0 ;i<TotalTime;i++){
             Percolation PercolationSample=pf.make(N);
             while(!PercolationSample.percolates()) {
-                int row = StdRandom.uniform(0, N - 1);
-                int col = StdRandom.uniform(0, N - 1);
+                int row = StdRandom.uniform(0, N );
+                int col = StdRandom.uniform(0, N );
                 if (!PercolationSample.isOpen(row, col)) {
                     PercolationSample.open(row, col);
                 }
             }
-            ArrayX[i] = PercolationSample.numberOfOpenSites();
+            ArrayX[i] = (double)PercolationSample.numberOfOpenSites()/N*N;
         }
 
     }   // perform T independent experiments on an N-by-N grid
