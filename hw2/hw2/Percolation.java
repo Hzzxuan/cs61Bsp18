@@ -19,14 +19,19 @@ public class Percolation{
         size = 0;
         vertical = N;
         union1 = new WeightedQuickUnionUF(N*N+1);
-
+        UnionInit();
     }                // create N-by-N grid, with all sites initially blocked
-    public void open(int row, int col){
-        if(row>=vertical ||col>=vertical ||row <0||col<0){
-            throw new IllegalArgumentException("Argument Out of range");
+
+
+    private void UnionInit(){
+        for(int i=0;i<vertical ;i++){
+            if (grid[0][i] == true){
+                UnionUpdate(0,i);
+            }
         }
-        grid[row][col] = true;
-        size += 1;
+    }
+
+    private void UnionUpdate(int row,int col){
         if(row==0 && col==0){
             if(isOpen(row,col+1)){union1.union(UnionIndex(row, col),UnionIndex(row,col+1));}
             if(isOpen(row+1,col)){union1.union(UnionIndex(row, col),UnionIndex(row+1,col));}
@@ -61,6 +66,14 @@ public class Percolation{
             if(isOpen(row-1,col)){union1.union(UnionIndex(row, col),UnionIndex(row-1,col));}
             if(isOpen(row+1,col)){union1.union(UnionIndex(row, col),UnionIndex(row+1,col));}
         }
+    }
+    public void open(int row, int col){
+        if(row>=vertical ||col>=vertical ||row <0||col<0){
+            throw new IllegalArgumentException("Argument Out of range");
+        }
+        grid[row][col] = true;
+        size += 1;
+        UnionUpdate(row,col);
 
     }       // open the site (row, col) if it is not open already
     private int UnionIndex(int row ,int col){
@@ -77,10 +90,11 @@ public class Percolation{
         if(row>=vertical ||col>=vertical ||row <0||col<0){
             throw new IllegalArgumentException("Argument Out of range");
         }
-        if(UnionIndex(row,col)>=0&&UnionIndex(row,col)<vertical-1){
+        if(UnionIndex(row,col)>=0&&UnionIndex(row,col)<vertical-1&&isOpen(row,col)){
             return true;
-        }
-        else {
+        } else if (UnionIndex(row,col)>=0&&UnionIndex(row,col)<vertical-1&&(!isOpen(row,col))) {
+            return false;
+        } else {
             for(int i=0;i<vertical-1;i++){
                 if(union1.connected(UnionIndex(row,col),i)){
                     return true;
