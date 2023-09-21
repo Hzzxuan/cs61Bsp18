@@ -71,8 +71,10 @@ public class Percolation{
         if(row>=vertical ||col>=vertical ||row <0||col<0){
             throw new IllegalArgumentException("Argument Out of range");
         }
-        grid[row][col] = true;
-        size += 1;
+        if(!isOpen(row,col)){
+            grid[row][col] = true;
+            size += 1;
+        }
         UnionUpdate(row,col);
 
     }       // open the site (row, col) if it is not open already

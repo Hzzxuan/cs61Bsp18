@@ -2,8 +2,8 @@ package hw2;
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 public class PercolationStats {
-    int TotalTime;
-    int [] ArrayX;
+    private int TotalTime;
+    private int [] ArrayX;
     public PercolationStats(int N, int T, PercolationFactory pf){
         TotalTime =T ;
         ArrayX = new int[N];
@@ -30,10 +30,10 @@ public class PercolationStats {
         return StdStats.stddev(ArrayX);
     }                                         // sample standard deviation of percolation threshold
     public double confidenceLow() {
-        return (StdStats.mean(ArrayX)-1.96*Math.sqrt(StdStats.stddev(ArrayX)/TotalTime));
+        return (mean()-1.96*Math.sqrt(stddev()/TotalTime));
     }                                 // low endpoint of 95% confidence interval
     public double confidenceHigh() {
-        return (StdStats.mean(ArrayX)+1.96*Math.sqrt(StdStats.stddev(ArrayX)/TotalTime));
+        return (mean()+1.96*Math.sqrt(stddev()/TotalTime));
     }                               // high endpoint of 95% confidence interval
 
 }
