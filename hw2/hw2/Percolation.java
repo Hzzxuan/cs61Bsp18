@@ -90,12 +90,12 @@ public class Percolation{
         if(row>=vertical ||col>=vertical ||row <0||col<0){
             throw new IllegalArgumentException("Argument Out of range");
         }
-        if(UnionIndex(row,col)>=0&&UnionIndex(row,col)<vertical-1&&isOpen(row,col)){
+        if(UnionIndex(row,col)>=0&&UnionIndex(row,col)<=vertical-1&&isOpen(row,col)){
             return true;
-        } else if (UnionIndex(row,col)>=0&&UnionIndex(row,col)<vertical-1&&(!isOpen(row,col))) {
+        } else if (UnionIndex(row,col)>=0&&UnionIndex(row,col)<=vertical-1&&(!isOpen(row,col))) {
             return false;
         } else {
-            for(int i=0;i<vertical-1;i++){
+            for(int i=0;i<=vertical-1;i++){
                 if(union1.connected(UnionIndex(row,col),i)){
                     return true;
                 }
