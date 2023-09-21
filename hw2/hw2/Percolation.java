@@ -10,6 +10,9 @@ public class Percolation{
     private WeightedQuickUnionUF union1;
     //row*vertical+col
     public Percolation(int N){
+        if(N<=0){
+            throw new IllegalArgumentException();
+        }
         grid = new boolean[N][N];
         for(int i=0;i<N;i++){
             for (int j=0;j<N;j++){
@@ -32,6 +35,9 @@ public class Percolation{
     }
 
     private void UnionUpdate(int row,int col){
+        if(vertical ==1 ){
+            return;
+        }
         if(row==0 && col==0){
             if(isOpen(row,col+1)){union1.union(UnionIndex(row, col),UnionIndex(row,col+1));}
             if(isOpen(row+1,col)){union1.union(UnionIndex(row, col),UnionIndex(row+1,col));}
@@ -69,7 +75,7 @@ public class Percolation{
     }
     public void open(int row, int col){
         if(row>=vertical ||col>=vertical ||row <0||col<0){
-            throw new IllegalArgumentException("Argument Out of range");
+            throw new IndexOutOfBoundsException("Argument Out of bounds");
         }
         if(!isOpen(row,col)){
             grid[row][col] = true;
@@ -111,7 +117,7 @@ public class Percolation{
     public boolean percolates() {
         for(int j=0;j<vertical;j++){
             for(int i=0;i<vertical;i++){
-                if(union1.connected(UnionIndex(vertical-1,j),UnionIndex(0,i))){
+                if(union1.connected(UnionIndex(vertical-1,j),UnionIndex(0,i))&&isOpen(j,i)){
                     return true;
                 }
             }
