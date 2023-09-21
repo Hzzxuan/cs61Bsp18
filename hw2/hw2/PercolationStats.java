@@ -19,7 +19,7 @@ public class PercolationStats {
                     PercolationSample.open(row, col);
                 }
             }
-            ArrayX[i] = (double)PercolationSample.numberOfOpenSites()/N*N;
+            ArrayX[i] = (double)PercolationSample.numberOfOpenSites()/(N*N);
         }
 
     }   // perform T independent experiments on an N-by-N grid
